@@ -25,31 +25,43 @@ public class ProductServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String productName = request.getParameter("productName");
 		Product product = productservice.getProduct(productName);
-		response.setStatus(200);
+		response.setStatus(200); // 200 201 203 301 302 400 401 403 404 405 415 423 500
 		response.getWriter().println(product);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		int price = 0;
 
-		String productName = request.getParameter("productName");
-		String price = request.getParameter("price");
-		String size = request.getParameter("size");
-		String color = request.getParameter("color");
+		try {
+			price = Integer.parseInt(request.getParameter("price"));
+		} catch (NumberFormatException e) {
+			response.setStatus(400);
+			response.getWriter().println("숫자만 입력하세요");
+			return;
+		}
 
-		Product product = Product.builder().productName(productName).price(price).size(size).color(color).build();
+		Product product = Product.builder().productName(request.getParameter("productName")).price(price)
+				.size(request.getParameter("size")).color(request.getParameter("color")).build();
+
+		if (productservice.getProduct(product.getProductName()) != null) {
+			response.setStatus(400);
+			response.getWriter().println("이미 등록된 상품 입니다.");
+			return;
+		}
+
 		int body = productservice.addProduct(product);
 
 		switch (body) {
 
 		case 0:
 			response.setStatus(400);
-			response.getWriter().print(body);
+			response.getWriter().println(body);
 			break;
 
 		case 1:
 			response.setStatus(201);
-			response.getWriter().print(body);
+			response.getWriter().println("상품등록이 완료되었습니다");
 			break;
 		}
 	}

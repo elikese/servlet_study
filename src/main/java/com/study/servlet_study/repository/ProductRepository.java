@@ -30,21 +30,11 @@ public class ProductRepository {
 	}
 
 	public boolean isSameProductName(Product product) {
-
-//		while (productList.iterator().hasNext()) {
-//			if (productList.iterator().next().getProductName().equals(product.getProductName())) {
-//				return true;
-//			}
-//		}
-
 		for (Product a : productList) {
 			if (a.getProductName().equals(product.getProductName())) {
 				return true;
 			}
 		}
-
-		productList.forEach(null);
-
 		return false;
 	}
 
@@ -53,6 +43,7 @@ public class ProductRepository {
 		for (Product product : productList) {
 			if (product.getProductName().equals(productName)) {
 				findProduct = product;
+				break;
 			}
 		}
 		return findProduct;
