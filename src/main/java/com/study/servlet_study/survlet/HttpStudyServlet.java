@@ -43,9 +43,7 @@ public class HttpStudyServlet extends HttpServlet {
 		while (ir.hasNext()) {
 			String key = ir.next();
 			paramsMap2.put(key, request.getParameter(key));
-
 		}
-
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
