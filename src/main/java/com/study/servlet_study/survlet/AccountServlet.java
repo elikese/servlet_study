@@ -23,6 +23,11 @@ public class AccountServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		String username = request.getParameter("username");
+		Account account = accountService.getAccount(username);
+		response.setStatus(200);
+		response.getWriter().println(account);
+
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

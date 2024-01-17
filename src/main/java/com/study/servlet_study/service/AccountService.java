@@ -22,4 +22,8 @@ public class AccountService {
 		return accountRepository.saveAccount(account); // saveAccount의 return은 int 1;
 	}
 
+	public Account getAccount(String username) {
+		return accountRepository.findAccountByUsername(username);
+	}
+
 }

@@ -25,4 +25,16 @@ public class AccountRepository {
 		return 1; // 1을 리턴하는 이유 : DB
 	}
 
+	public Account findAccountByUsername(String username) {
+		Account findAccount = null;
+
+		for (Account account : accountList) {
+			if (account.getUsername().equals(username)) {
+				findAccount = account;
+				break;
+			}
+		}
+		return findAccount;
+	}
+
 }
